@@ -26,5 +26,5 @@ A full-stack Airbnb-like application built with Node.js, Express, MongoDB, EJS, 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/airbnb.git
-cd airbnb
+git clone https://github.com/your-username/nestaway.git
+cd nestaway
