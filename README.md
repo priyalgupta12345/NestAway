@@ -28,3 +28,36 @@ A full-stack Airbnb-like application built with Node.js, Express, MongoDB, EJS, 
 ```bash
 git clone https://github.com/your-username/nestaway.git
 cd nestaway
+## Project Structure
+NestAway/
+│
+├── app.js                  # Main application entry point
+├── package.json
+├── .env
+├── public/
+│   ├── css/
+│   │   ├── style.css
+│   │   ├── script.js
+│   │   └── script1.js
+├── routes/
+│   ├── listing.js
+│   ├── reviews.js
+│   └── user.js
+├── utilis/                 # Utility functions (wrapAsync, ExpressError, etc.)
+├── views/
+│   ├── includes/
+│   │   ├── flash.ejs
+│   │   ├── footer.ejs
+│   │   └── navbar.ejs
+│   ├── users/
+│   ├── all.ejs
+│   ├── boilerplate.ejs
+│   ├── edit.ejs
+│   ├── error.ejs
+│   ├── home.ejs
+│   ├── new.ejs
+│   └── show.ejs
+└── README.md
+
+
+
