@@ -29,27 +29,7 @@ A full-stack Airbnb-like application built with Node.js, Express, MongoDB, EJS, 
 git clone https://github.com/your-username/nestaway.git
 cd nestaway
 
-# 1. Clone the repo
-git clone https://github.com/your-username/airbnb.git
+2. Install all dependencies
 
-# 2. Navigate into project folder
-cd airbnb
-
-# 3. Install all dependencies
+```bash
 npm install
-
-# 4. Create .env file
-echo "DB_URL=mongodb://localhost:27017/airbnb" > .env
-echo "SESSION_SECRET=mySuperSecret123" >> .env
-
-# 5. Start MongoDB (local) in background
-# Windows: start mongod
-# Linux/macOS: sudo service mongod start
-# For simplicity, you can open a separate terminal and run mongod manually
-
-# 6. Start the server
-node app.js
-
-# 7. Open browser at http://localhost:3000
-
-
