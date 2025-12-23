@@ -1,0 +1,192 @@
+<!-- <%layout("boilerplate.ejs")%>
+
+    <div class="row">
+        <div class="col-8 offset-2">
+            <h3><%=listing.title%></h3>
+    <div class="card col-6">
+        <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="...">
+        <div class="card-body">
+        <li><%=listing.description%></li>
+        <li>&#8377;<%=listing.price.toLocaleString("en-IN")%></li>
+        <li><%=listing.country%></li>
+
+    </ul>
+    <br>
+    <a href="/listings/<%=listing._id%>/edit">Edit this listing</a>
+    <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
+        <button>Delete this Listing</button>
+    </form>
+    </div>
+    <hr>
+    <div class="col-8 offset">
+        <h4>Leave a Review</h4>
+        <form>
+            <div>
+                <label for="rating">Rating</label>
+                <input type="range" min="1" max="5" id="rating" name="review[rating]">
+            </div>
+            <div>
+                <label for="comment" class="form-label">Comment</label>
+                <textarea name="review[comment]" id="comment" row="30" col="10" class="form-control"></textarea>
+            </div>
+            <button>Submit</button>
+        </form>
+    </div>
+    </div> -->
+<% layout("boilerplate.ejs") %>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2 class="mb-4 text-center"><%= listing.title %></h2>
+
+      <div class="card shadow-lg p-3 mb-4 rounded">
+        <img
+          src="<%= listing.image.url %>"
+          class="card-img-top show-img rounded"
+          alt="Listing Image"
+        />
+
+        <div class="card-body">
+          
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item mt-3">
+            <strong>Owner:</strong> 
+            <%= listing.owner ? listing.owner.username : "Unknown" %>
+          </li>
+
+            <li class="list-group-item"><strong>Description:</strong> <%= listing.description %></li>
+            
+            <li class="list-group-item"><strong>Price:</strong> ₹<%= listing.price.toLocaleString("en-IN") %></li>
+            <li class="list-group-item"><strong>Location:</strong> <%= listing.location %></li>
+            <li class="list-group-item"><strong>Country:</strong> <%= listing.country %></li>
+          </ul>
+          
+          <% if (currUser && listing.owner && currUser._id.toString() === listing.owner._id.toString()) { %>
+          <div class="d-flex justify-content-between mt-3">
+            <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary">Edit Listing</a>
+
+            <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+              <button class="btn btn-danger">Delete Listing</button>
+            </form>
+           
+          </div>
+          
+        </div>
+      </div>
+      <hr />
+      <%}%>
+      
+      <% if(currUser) {%>
+      <div class="card p-3 shadow-sm rounded mb-5">
+        <h4 class="mb-3">Leave a Review</h4>
+        <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation">
+          <!-- <div class="mb-3">
+            <label for="rating" class="form-label">Rating</label>
+            <input
+              type="range"
+              min="1"
+              max="5"
+              id="rating"
+              name="review[rating]"
+              class="form-range"
+            />
+          </div> -->
+          <fieldset class="starability-slot">
+          <!-- <legend>First rating:</legend> -->
+          <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+          <input type="radio" id="first-rate1" name="rating" value="1" />
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input type="radio" id="first-rate2" name="rating" value="2" />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input type="radio" id="first-rate3" name="rating" value="3" />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input type="radio" id="first-rate4" name="rating" value="4" />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input type="radio" id="first-rate5" name="rating" value="5" />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
+          <div class="mb-3">
+            <label for="comment" class="form-label">Comment</label>
+            <textarea
+              name="review[comment]"
+              id="comment"
+              rows="4"
+              required
+              class="form-control"
+             
+            ></textarea>
+             <div class="invalid-feedback">
+                Please give your reviews 
+            </div>
+          </div>
+          
+
+          <button class="btn btn-success w-100">Submit Review</button>
+        </form>
+       <%}%> 
+        <hr>
+        <% if (listing.reviews.length>0){%>
+        <h4>All Reviews </h4>
+        <!-- <p><%=listing.reviews%></p> -->
+
+        <% for(let r of listing.reviews) { %>
+            <div class="card p-2 my-2">
+              <div class="card-body">
+                <h5 class="card-title"><%=r.author.username%></h5>
+                
+                  <!-- <h3>Rated element name</h3> -->
+                  <p class="starability-result-text" data-rating=<%=r.rating%>>
+                  </p>
+                
+                <strong>Comment:</strong> <%= r.comment %>
+                <form method="post" action="/listings/<%=listing._id%>/reviews/<%=r._id%>?_method=DELETE">
+                <% if(currUser && r.author && currUser._id.toString() === r.author._id.toString()) { %>
+                  <button class="btn btn-sm btn-dark">Delete</button>
+                  <% } %>
+                </form>
+                </div>
+            </div>
+        <% } %> 
+        <%}%>
+      </div>
+      <h3>Where you will be</h3>
+      <!-- <div id="map"
+          style="height:400px;"
+          data-coords="[77.2090057,28.6138954]"
+        ></div> -->
+
+     
+<div id="map" 
+     data-coords='<%- JSON.stringify(listing.geometry.coordinates) %>'
+     style="height:400px; width:100%;"></div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const mapEl = document.getElementById("map");
+
+        // Get [lng, lat] from dataset (listing coordinates)
+        // const coords = JSON.parse(mapEl.dataset.coords);
+        const coords = mapEl.dataset.coords ? JSON.parse(mapEl.dataset.coords) : [77.2090, 28.6139];
+        const [lng, lat] = coords;
+
+        // Initialize map centered on listing location
+        const map = L.map("map").setView([lat, lng], 13);
+
+        // OpenStreetMap tiles
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: "© OpenStreetMap contributors",
+        }).addTo(map);
+
+        // Marker for the listing
+        L.marker([lat, lng])
+          .addTo(map)
+          .bindPopup(`<b><%= listing.title %></b><br><%= listing.location %>`)
+          .openPopup();
+    });
+    </script>
+
+    </div>
+  </div>
+</div>
+

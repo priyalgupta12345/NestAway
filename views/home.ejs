@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pretty Listings Page</title>
+  <style>
+    /* Reset + vibe setup */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f9d8ff, #d5e8ff);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #333;
+    }
+
+    h4 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: #4b0082;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    form button {
+      background: linear-gradient(90deg, #b88aff, #8fd3fe);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+
+    form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      background: linear-gradient(90deg, #8fd3fe, #b88aff);
+    }
+
+    ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      width: 80%;
+      margin-top: 30px;
+    }
+
+    li {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    li:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    li h3 {
+      color: #6c63ff;
+      margin-bottom: 10px;
+    }
+
+    li p {
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <h4>🌸 All Listings 🌸</h4>
+  <form method="GET" action="listings/new">
+    <button>Create New Listing</button>
+  </form>
+
+  <ul>
+    <li>
+      <h3>Cozy Cottage</h3>
+      <p>Perfect for weekend getaways — ocean breeze and peaceful vibes 🌊</p>
+    </li>
+    <li>
+      <h3>Urban Apartment</h3>
+      <p>Modern interiors with city skyline views 🌃</p>
+    </li>
+    <li>
+      <h3>Mountain Cabin</h3>
+      <p>For when you just need to disappear into nature 🏔️</p>
+    </li>
+  </ul>
+</body>
+</html>

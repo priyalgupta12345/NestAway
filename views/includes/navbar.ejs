@@ -1,0 +1,124 @@
+<style>
+  /* CONTAINER */
+.search {
+  margin-left: 30px;
+  margin-right: 60px;
+  width: 100%;
+}
+
+/* FORM WRAPPER */
+.search-form .input-group {
+  width: 100%;
+  border-radius: 999px; /* full pill */
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: box-shadow 0.2s ease;
+}
+
+.search-form .input-group:focus-within {
+  box-shadow: 0 6px 16px rgba(255,102,163,0.4); /* pink glow on focus */
+}
+
+/* ICON */
+.input-group-text {
+  background-color: white;
+  border: none;
+  color: #ff66a3;
+  font-size: 1rem;
+}
+
+/* INPUT FIELD */
+.search-form input.form-control {
+  border: none;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.search-form input.form-control:focus {
+  box-shadow: none;
+}
+
+/* BUTTON */
+.btn-search {
+  background-color: #ff66a3;
+  color: white;
+  border: none;
+  font-weight: 500;
+  padding: 0.55rem 1.2rem;
+  transition: all 0.2s ease;
+}
+
+.btn-search:hover {
+  background-color: #ff3399;
+}
+
+.btn-search:active {
+  background-color: white;
+  color: #ff66a3;
+  box-shadow: 0 4px 6px rgba(255,51,153,0.3);
+  transform: translateY(2px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .search {
+    margin: 10px 0;
+  }
+}
+
+
+
+</style>
+
+<nav class="navbar navbar-expand-md bg-body-light sticky-top">
+  <div class="container-fluid">
+
+    <a class="navbar-brand" href="/listings"><i class="fa-solid fa-suitcase"></i></a>
+
+    <button class="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+      <!-- LEFT side -->
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="/listings">Explore</a></li>
+        
+      </ul>
+      <!-- MIDDLE side-->
+            <!-- SEARCH FORM -->
+      <div class="search">
+        <form class="d-flex search-form" role="search">
+          <div class="input-group">
+            <span class="input-group-text" id="search-icon"><i class="fa fa-search"></i></span>
+            <input class="form-control" type="search" placeholder="Search listings" aria-label="Search"/>
+            <button class="btn btn-search" type="submit">Search</button>
+          </div>
+        </form>
+      </div>
+
+
+      <!-- RIGHT side -->
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="/listings/new">Add New Listing</a></li>
+        <% if(!currUser){%>
+          <li class="nav-item"><a class="nav-link" href="/signup"><b>Sign Up</b></a></li>
+        <li class="nav-item"><a class="nav-link" href="/login"><b>Log In</b></a></li>
+        <%}%><%if(currUser){ %>
+          <li class="nav-item"><a class="nav-link" href="/logout"><b>Logout</b></a></li>
+        <%}%>
+        
+      </ul>
+
+    </div>
+
+  </div>
+</nav>

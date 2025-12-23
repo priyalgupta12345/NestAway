@@ -1,0 +1,73 @@
+<%layout("boilerplate")%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Listing | Wanderlust</title>
+  
+</head>
+<body>
+  <div class="row">
+    <div class="col-8 offset-2">
+      <form method="post" action="/listings/<%=listing._id%>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+    <h3>Edit Listing</h3>
+    <div class="mb-3">
+      <label for="title"class="form-label">Title</label>
+     <input name="listing[title]" value="<%= listing.title %>" type="text" class="form-control" required/>
+    </div>
+    <div class="mb-3">
+    <label for="description"class="form-label">Description</label>
+    <textarea name="listing[description]"  class="form-control" required ><%= listing.description %></textarea>
+    </div>
+    <div class="mb-3 col-md-4">
+      Current Image<br>
+      <img src=<%=listing.image.url%>  width="500" height="300">
+    </div>
+    <div class="mb-3">
+    <label for="image"class="form-label">Upload Image </label>
+    <input name="listing[image][url]" value="<%= listing.image.url %>" type="file" class="form-control" />
+    </div>
+    <div class="row">
+      <div class="mb-3 col-md-4">
+      <label for="price"class="form-label">Price</label>
+      <input name="listing[price]" value="<%= listing.price %>" type="number" class="form-control" required/>
+      </div>
+        <!-- Categories (Checkboxes) -->
+        <div class="mb-3">
+        <label class="form-label">Categories</label>
+        <div class="d-flex flex-wrap gap-2">
+            <% const categories = [
+                "Rooms","Beach","Lakefront","Mountains","Amazing Pools",
+            "Tree Houses","Tiny Homes","Appartments","Arctic","Farms","Camping",
+            "Iconic Cities","Amazing Views","Surfing","Castle"
+            ]; %>
+
+            <% for (let cat of categories) { %>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="listing[category][]" value="<%= cat %>" id="cat-<%= cat %>">
+                <label class="form-check-label" for="cat-<%= cat %>"><%= cat %></label>
+            </div>
+            <% } %>
+        </div>
+        </div>
+
+      <div class="mb-3 col-md-8">
+      <label for="location"class="form-label">Location</label>
+      <input name="listing[location]" value="<%= listing.location %>" type="text" class="form-control" required />
+    </div>
+
+    </div>
+    
+    <div class="mb-3">
+    <label for="country"class="form-label">Country</label>
+    <input name="listing[country]" value="<%= listing.country %>" type="text" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-dark  edit-btn mg-3">💾 Save Changes</button>
+    </form>
+  </div>
+  </div>
+  
+</body>
+</html>

@@ -1,0 +1,162 @@
+<% layout("boilerplate") %>
+
+<style>
+.filters {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  margin-top: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.filters a {
+  text-decoration: none;
+}
+
+.filter-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  min-width: 80px;
+  opacity: 0.7;
+}
+
+.filter-btn.active {
+  opacity: 1;
+  font-weight: bold;
+}
+
+.filter-btn:hover {
+  opacity: 1;
+}
+
+.filter-btn i {
+  font-size: 1.4rem;
+}
+
+.filter-btn p {
+  font-size: 0.9rem;
+  margin: 0;
+}
+a{
+  color:black;
+  opacity:0.8;
+}
+a:hover{
+  color:black;
+  opacity:1;
+}
+.tax-switch {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  margin-top: 1rem;
+  width: fit-content;
+  margin-left:1070px;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+}
+
+.form-check-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+}
+
+.form-switch .form-check-input {
+  cursor: pointer;
+}
+
+
+</style>
+
+<!-- Category filter buttons -->
+<div class="filters mb-4">
+  <% const categories = [
+    { name: "Trending", icon: "fa-fire" },
+    { name: "Rooms", icon: "fa-bed" },
+    { name: "Beach", icon: "fa-umbrella-beach" },
+    { name: "Lakefront", icon: "fa-water" },
+    { name: "Mountains", icon: "fa-mountain" },
+    { name: "Amazing Pools", icon: "fa-person-swimming" },
+    { name: "Tree Houses", icon: "fa-tree" },
+    { name: "Tiny Homes", icon: "fa-house" },
+    { name: "Appartments", icon: "fa-building" },
+    { name: "Arctic", icon: "fa-snowflake" },
+    { name: "Farms", icon: "fa-cow" },
+    { name: "Camping", icon: "fa-tents" },
+    { name: "Iconic Cities", icon: "fa-city" },
+    { name: "Amazing Views", icon: "fa-binoculars" },
+    { name: "Surfing", icon: "fa-house" },
+    { name: "Castle", icon: "fa-fort-awesome" }
+  ]; %>
+  <!-- All button -->
+  <a href="/listings" class="filter-btn <%= !categoryFilter ? 'active' : '' %>">
+    <i class="fa fa-list"></i>
+    <p>All</p>
+  </a>
+  <% for (let cat of categories) { %>
+    <a href="/listings?category=<%= cat.name %>" class="filter-btn <%= categoryFilter === cat.name ? 'active' : '' %>" >
+      <i class="fa <%= cat.icon %>"></i>
+      <p><%= cat.name %></p>
+    </a>
+  <% } %>
+
+  
+</div>
+  <div class="tax-switch me-auto">
+    <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+    <label class="form-check-label" for="switchCheckDefault">Display Total after taxes</label>
+    </div>
+  </div>
+<!-- Listing cards -->
+<div class="row row-cols-lg-5 row-cols-md-3 row-cols-sm-1 g-4 mt-3">
+  <% for (let listing of allListings) { %>
+    <div class="col">
+      <a href="/listings/<%= listing._id %>" class="text-decoration-none text-dark">
+        <div class="card" style="width: 100%;">
+          <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_img" style="height:20rem; object-fit: cover;">
+          <div class="card-body">
+            <p class="card-text"><b><%= listing.title %></b></p>
+            <p class="card-text">&#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %>/night</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  <% } %>
+</div>
+
+<script>
+  let taxswitch=document.getElementById('switchCheckDefault');
+  taxswitch.addEventListener('click',()=>{
+    let priceElements=document.querySelectorAll('.card-text:nth-child(2)');
+    priceElements.forEach(elem=>{
+      let priceText=elem.textContent;
+      let priceMatch=priceText.match(/₹([\d,]+)/);
+      if(priceMatch){
+        let price=parseInt(priceMatch[1].replace(/,/g,''));
+        if(taxswitch.checked){
+          let totalPrice=(price*1.18).toFixed(2);
+          elem.innerHTML=`&#8377;${totalPrice.toLocaleString("en-IN")}/night (incl. taxes)`;
+        }else{
+          elem.innerHTML=`&#8377;${price.toLocaleString("en-IN")}/night`;
+        }
+      }
+    });
+  })
+</script>
