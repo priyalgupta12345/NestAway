@@ -1,4 +1,4 @@
-# Airbnb Clone
+# NestAway
 
 A full-stack Airbnb-like application built with Node.js, Express, MongoDB, EJS, and Passport.js for authentication.
 
