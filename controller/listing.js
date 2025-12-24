@@ -56,8 +56,9 @@ module.exports.editlisting=async (req, res) => {
   // GET /listings
 module.exports.index = async (req, res) => {
   const categoryFilter = req.query.category; // ?category=Camping
+  const searchTerm = req.query.q;
   let allListings;
-
+  let query = {};
   if (categoryFilter) {
     allListings = await Listing.find({
       category: { $in: [categoryFilter] } // works if category is an array
@@ -65,6 +66,11 @@ module.exports.index = async (req, res) => {
   } else {
     allListings = await Listing.find({});
   }
+  if (searchTerm) {
+    query.title = { $regex: searchTerm, $options: 'i' }; // case-insensitive search
+  }
+  allListings = await Listing.find(query);
+
 
   // send both listings and currently selected category to EJS
   res.render("all.ejs", { allListings, categoryFilter });
